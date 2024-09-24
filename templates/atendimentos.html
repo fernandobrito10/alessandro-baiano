@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atendimentos</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Atendimentos Registrados</h1>
+        <ul>
+        {% for atendimento in atendimentos %}
+            <li>
+                <p><strong>Código do Cliente:</strong> {{ atendimento['codigo_cliente'] }}</p>
+                <p><strong>Nome do Cliente:</strong> {{ atendimento['nome_cliente'] }}</p>
+                <p><strong>Data:</strong> {{ atendimento['data'] }}</p>
+                <p><strong>Hora:</strong> {{ atendimento['hora'] }}</p>
+                <p><strong>Protocolo:</strong> {{ atendimento['protocolo'] }}</p>
+                <p><strong>Atendimento:</strong> {{ atendimento['atendimento'] }}</p>
+                <p><strong>Natureza:</strong> {{ atendimento['natureza'] }}</p>
+                <p><strong>Tempo de Atendimento:</strong> {{ atendimento['tempo_atendimento'] }}</p>
+                <button onclick="copiarTexto(this)">Copiar Informações</button>
+                <a href="/concluir/{{ loop.index0 }}">Concluir</a>
+            </li>
+        {% endfor %}
+        </ul>
+        <a href="/">Voltar</a>
+    </div>
+
+    <script>
+        function copiarTexto(button) {
+            let texto = button.parentElement.innerText;
+            navigator.clipboard.writeText(texto);
+            alert('Informações copiadas para a área de transferência!');
+        }
+    </script>
+</body>
+</html>

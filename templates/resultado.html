@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informações Registradas</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Informações do Atendimento</h1>
+        <p><strong>Código do Cliente:</strong> {{ codigo_cliente }}</p>
+        <p><strong>Nome do Cliente:</strong> {{ nome_cliente }}</p>
+        <p><strong>Data:</strong> {{ data }}</p>
+        <p><strong>Hora:</strong> {{ hora }}</p>
+        <p><strong>Protocolo:</strong> {{ protocolo }}</p>
+        <p><strong>Atendimento:</strong> {{ atendimento }}</p>
+        <p><strong>Natureza:</strong> {{ natureza }}</p>
+        <p><strong>Tempo de Atendimento:</strong> {{ tempo_atendimento }}</p>
+
+        <button onclick="copiarTexto()">Copiar Informações</button>
+    </div>
+
+    <script>
+        function copiarTexto() {
+            let texto = document.body.innerText;
+            navigator.clipboard.writeText(texto);
+            alert('Informações copiadas para a área de transferência!');
+        }
+    </script>
+</body>
+</html>
