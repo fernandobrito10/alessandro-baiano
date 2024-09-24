@@ -12,16 +12,16 @@
         <ul>
         {% for atendimento in atendimentos %}
             <li>
-                <p><strong>Código do Cliente:</strong> {{ atendimento['codigo_cliente'] }}</p>
-                <p><strong>Nome do Cliente:</strong> {{ atendimento['nome_cliente'] }}</p>
-                <p><strong>Data:</strong> {{ atendimento['data'] }}</p>
-                <p><strong>Hora:</strong> {{ atendimento['hora'] }}</p>
-                <p><strong>Protocolo:</strong> {{ atendimento['protocolo'] }}</p>
-                <p><strong>Atendimento:</strong> {{ atendimento['atendimento'] }}</p>
-                <p><strong>Natureza:</strong> {{ atendimento['natureza'] }}</p>
-                <p><strong>Tempo de Atendimento:</strong> {{ atendimento['tempo_atendimento'] }}</p>
+                <p><strong>Código do Cliente:</strong> {{ atendimento.codigo_cliente }}</p>
+                <p><strong>Nome do Cliente:</strong> {{ atendimento.nome_cliente }}</p>
+                <p><strong>Data:</strong> {{ atendimento.data }}</p>
+                <p><strong>Hora:</strong> {{ atendimento.hora }}</p>
+                <p><strong>Protocolo:</strong> {{ atendimento.protocolo }}</p>
+                <p><strong>Atendimento:</strong> {{ atendimento.atendimento }}</p>
+                <p><strong>Natureza:</strong> {{ atendimento.natureza }}</p>
+                <p><strong>Tempo de Atendimento:</strong> {{ atendimento.tempo_atendimento }}</p>
                 <button onclick="copiarTexto(this)">Copiar Informações</button>
-                <a href="/concluir/{{ loop.index0 }}">Concluir</a>
+                <a href="/concluir/{{ atendimento.id }}">Concluir</a>
             </li>
         {% endfor %}
         </ul>

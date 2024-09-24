@@ -1,9 +1,28 @@
 from flask import Flask, render_template, request, redirect
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# Lista que armazena os atendimentos
-atendimentos = []
+# Configuração do banco de dados SQLite
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///atendimentos.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+# Modelo para o atendimento
+class Atendimento(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    codigo_cliente = db.Column(db.String(50), nullable=False)
+    nome_cliente = db.Column(db.String(100), nullable=False)
+    data = db.Column(db.String(10), nullable=False)
+    hora = db.Column(db.String(5), nullable=False)
+    protocolo = db.Column(db.String(50), nullable=False)
+    atendimento = db.Column(db.String(200), nullable=False)
+    natureza = db.Column(db.String(100), nullable=False)
+    tempo_atendimento = db.Column(db.String(50), nullable=False)
+
+# Criação do banco de dados
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def index():
@@ -12,19 +31,20 @@ def index():
 @app.route('/registrar', methods=['POST'])
 def registrar():
     # Coleta os dados do formulário
-    atendimento = {
-        'codigo_cliente': request.form['codigo_cliente'],
-        'nome_cliente': request.form['nome_cliente'],
-        'data': request.form['data'],
-        'hora': request.form['hora'],
-        'protocolo': request.form['protocolo'],
-        'atendimento': request.form['atendimento'],
-        'natureza': request.form['natureza'],
-        'tempo_atendimento': request.form['tempo_atendimento']
-    }
+    atendimento = Atendimento(
+        codigo_cliente=request.form['codigo_cliente'],
+        nome_cliente=request.form['nome_cliente'],
+        data=request.form['data'],
+        hora=request.form['hora'],
+        protocolo=request.form['protocolo'],
+        atendimento=request.form['atendimento'],
+        natureza=request.form['natureza'],
+        tempo_atendimento=request.form['tempo_atendimento']
+    )
     
-    # Adiciona o atendimento à lista
-    atendimentos.append(atendimento)
+    # Adiciona o atendimento ao banco de dados
+    db.session.add(atendimento)
+    db.session.commit()
     
     # Redireciona para a página de atendimentos
     return redirect('/atendimentos')
@@ -32,13 +52,16 @@ def registrar():
 @app.route('/atendimentos')
 def ver_atendimentos():
     # Exibe os atendimentos registrados
+    atendimentos = Atendimento.query.all()
     return render_template('atendimentos.html', atendimentos=atendimentos)
 
-@app.route('/concluir/<int:index>')
-def concluir_atendimento(index):
-    # Remove o atendimento da lista
-    if 0 <= index < len(atendimentos):
-        atendimentos.pop(index)
+@app.route('/concluir/<int:id>')
+def concluir_atendimento(id):
+    # Remove o atendimento do banco de dados
+    atendimento = Atendimento.query.get(id)
+    if atendimento:
+        db.session.delete(atendimento)
+        db.session.commit()
     
     # Redireciona para a página de atendimentos
     return redirect('/atendimentos')
