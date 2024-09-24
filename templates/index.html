@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Atendimento</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Ligação com o arquivo CSS -->
+</head>
+<body>
+    <div class="container">
+        <h1>Formulário de Atendimento</h1>
+        <form action="/submit" method="POST">
+            <div class="form-group">
+                <label for="codigo_cliente">Código do Cliente:</label>
+                <input type="text" id="codigo_cliente" name="codigo_cliente" required>
+            </div>
+            <div class="form-group">
+                <label for="nome_cliente">Nome do Cliente:</label>
+                <input type="text" id="nome_cliente" name="nome_cliente" required>
+            </div>
+            <div class="form-group">
+                <label for="data">Data:</label>
+                <input type="date" id="data" name="data" required>
+            </div>
+            <div class="form-group">
+                <label for="hora">Hora:</label>
+                <input type="time" id="hora" name="hora" required>
+            </div>
+            <div class="form-group">
+                <label for="protocolo">Protocolo:</label>
+                <input type="text" id="protocolo" name="protocolo" required>
+            </div>
+            <div class="form-group">
+                <label for="atendimento">Atendimento:</label>
+                <input type="text" id="atendimento" name="atendimento" required>
+            </div>
+            <div class="form-group">
+                <label for="natureza">Natureza:</label>
+                <input type="text" id="natureza" name="natureza" required>
+            </div>
+            <div class="form-group">
+                <label for="tempo_atendimento">Tempo de Atendimento (Formato HHMMSS):</label>
+                <input type="text" id="tempo_atendimento" name="tempo_atendimento" required>
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</body>
+</html>
