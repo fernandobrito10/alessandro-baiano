@@ -1,13 +1,15 @@
+import pandas as pd
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import os
+import csv
 
 load_dotenv()
 
 app = Flask(__name__)
 
-# Configuração do banco de dados (verifique se a DATABASE_URL está correta)
+# Configuração do banco de dados SQLite
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -28,9 +30,22 @@ class Atendimento(db.Model):
 with app.app_context():
     db.create_all()
 
+# Função para carregar as naturezas do arquivo CSV
+def carregar_naturezas():
+    naturezas = []
+    with open('naturezasnova1.csv', newline='') as csvfile:
+        leitor = csv.DictReader(csvfile)
+        for linha in leitor:
+            
+            if 'natureza' in linha:
+                naturezas.append(linha['natureza'])
+            
+    return naturezas
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    naturezas = carregar_naturezas()  # Carrega as naturezas
+    return render_template('index.html', naturezas=naturezas)  # Passa as naturezas para o template
 
 @app.route('/registrar', methods=['POST'])
 def registrar():
@@ -63,7 +78,7 @@ def registrar():
     
     db.session.add(novo_atendimento)
     db.session.commit()
-
+    
     # Redireciona para a página de atendimentos
     return redirect('/atendimentos')
 

@@ -69,3 +69,26 @@ button:hover {
     font-size: 20px; /* Tamanho do ícone */
 }
 
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    border: 1px solid #ccc;
+    z-index: 1;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdown-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+}
