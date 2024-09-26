@@ -12,16 +12,31 @@
         <ul>
         {% for atendimento in atendimentos %}
             <li>
-                <p><strong>Código do Cliente:</strong> {{ atendimento.codigo_cliente }}</p>
-                <p><strong>Nome do Cliente:</strong> {{ atendimento.nome_cliente }}</p>
-                <p><strong>Data:</strong> {{ atendimento.data }}</p>
-                <p><strong>Hora:</strong> {{ atendimento.hora }}</p>
-                <p><strong>Protocolo:</strong> {{ atendimento.protocolo }}</p>
-                <p><strong>Atendimento:</strong> {{ atendimento.atendimento }}</p>
-                <p><strong>Natureza:</strong> {{ atendimento.natureza }}</p>
-                <p><strong>Tempo de Atendimento:</strong> {{ atendimento.tempo_atendimento }}</p>
-                <button onclick="copiarTexto(this)">Copiar Informações</button>
-                <a href="/concluir/{{ atendimento.id }}">Concluir</a>
+                <p><strong>Código do Cliente:</strong> {{ atendimento['codigo_cliente'] }} 
+                    <button onclick="copiarTexto('{{ atendimento['codigo_cliente'] }}')">Copiar</button>
+                </p>
+                <p><strong>Nome do Cliente:</strong> {{ atendimento['nome_cliente'] }} 
+                    <button onclick="copiarTexto('{{ atendimento['nome_cliente'] }}')">Copiar</button>
+                </p>
+                <p><strong>Data:</strong> {{ atendimento['data'] }} 
+                    <button onclick="copiarTexto('{{ atendimento['data'] }}')">Copiar</button>
+                </p>
+                <p><strong>Hora:</strong> {{ atendimento['hora'] }} 
+                    <button onclick="copiarTexto('{{ atendimento['hora'] }}')">Copiar</button>
+                </p>
+                <p><strong>Protocolo:</strong> {{ atendimento['protocolo'] }} 
+                    <button onclick="copiarTexto('{{ atendimento['protocolo'] }}')">Copiar</button>
+                </p>
+                <p><strong>Atendimento:</strong> {{ atendimento['atendimento'] }} 
+                    <button onclick="copiarTexto('{{ atendimento['atendimento'] }}')">Copiar</button>
+                </p>
+                <p><strong>Natureza:</strong> {{ atendimento['natureza'] }} 
+                    <button onclick="copiarTexto('{{ atendimento['natureza'] }}')">Copiar</button>
+                </p>
+                <p><strong>Tempo de Atendimento:</strong> {{ atendimento['tempo_atendimento'] }} 
+                    <button onclick="copiarTexto('{{ atendimento['tempo_atendimento'] }}')">Copiar</button>
+                </p>
+                <a href="/concluir/{{ loop.index0 }}">Concluir</a>
             </li>
         {% endfor %}
         </ul>
@@ -29,10 +44,12 @@
     </div>
 
     <script>
-        function copiarTexto(button) {
-            let texto = button.parentElement.innerText;
-            navigator.clipboard.writeText(texto);
-            alert('Informações copiadas para a área de transferência!');
+        function copiarTexto(texto) {
+            navigator.clipboard.writeText(texto).then(function() {
+                alert('Informação copiada: ' + texto);
+            }, function() {
+                alert('Falha ao copiar');
+            });
         }
     </script>
 </body>
