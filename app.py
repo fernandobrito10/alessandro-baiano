@@ -40,8 +40,8 @@ def registrar():
     atendimento = Atendimento(
         codigo_cliente=request.form['codigo_cliente'],
         nome_cliente=request.form['nome_cliente'],
-        data=request.form['data'],
-        hora=request.form['hora'],
+        data=request.form['data'.replace('-', '')],
+        hora=request.form['hora'.replace('-', '')],
         protocolo=request.form['protocolo'],
         atendimento=request.form['atendimento'],
         natureza=request.form['natureza'],
