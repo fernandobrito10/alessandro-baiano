@@ -7,3 +7,4 @@ pip install Flask-SQLAlchemy
 pip install python-dotenv
 pip install psycopg2
 pip install gunicorn
+pip install pandas
