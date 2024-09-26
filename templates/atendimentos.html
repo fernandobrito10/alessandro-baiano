@@ -45,11 +45,7 @@
 
     <script>
         function copiarTexto(texto) {
-            navigator.clipboard.writeText(texto).then(function() {
-                alert('Informação copiada: ' + texto);
-            }, function() {
-                alert('Falha ao copiar');
-            });
+            navigator.clipboard.writeText(texto);
         }
     </script>
 </body>

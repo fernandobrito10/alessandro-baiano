@@ -3,8 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Atendimento</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <title>Registro de Atendimento</title>
+    <link rel="stylesheet" href="/static/styles.css"> <!-- Certifique-se de que o caminho esteja correto -->
+    <style>
+        /* CSS existente */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* Estilos para o botão do microfone */
+        .mic-button {
+            width: auto; /* Tamanho automático para o botão */
+            padding: 5px; /* Espaçamento interno menor */
+            background: none; /* Fundo transparente */
+            border: none; /* Sem borda */
+            cursor: pointer; /* Cursor de ponteiro */
+        }
+
+        .mic-button:focus {
+            outline: none; /* Remove contorno ao focar */
+        }
+
+        .microphone-icon {
+            font-size: 20px; /* Tamanho do ícone */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -32,7 +105,10 @@
             </div>
             <div class="form-group">
                 <label for="atendimento">Atendimento:</label>
-                <input type="text" id="atendimento" name="atendimento" required>
+                <div class="input-container">
+                    <input type="text" id="atendimento" name="atendimento" placeholder="Digite ou fale algo..." required>
+                    <button id="micButton" title="Clique para falar" class="mic-button microphone-icon">🎤</button>
+                </div>
             </div>
             <div class="form-group">
                 <label for="natureza">Natureza:</label>
@@ -46,5 +122,41 @@
         </form>
         <a href="/atendimentos">Ver Atendimentos</a>
     </div>
+
+    <script>
+        const inputField = document.getElementById('atendimento');
+        const micButton = document.getElementById('micButton');
+
+        // Verifica se o navegador suporta a API de reconhecimento de fala
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'pt-BR';
+            recognition.interimResults = true; // Permite resultados parciais
+
+            // Função para quando começar a falar
+            micButton.addEventListener('click', () => {
+                recognition.start();
+            });
+
+            // Função para quando o reconhecimento de fala retornar resultados contínuos
+            recognition.onresult = (event) => {
+                let transcript = '';
+                for (let i = 0; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript;
+                }
+                inputField.value = transcript;
+            };
+
+            // Função para capturar erros
+            recognition.onerror = (event) => {
+                console.error("Erro de reconhecimento de fala:", event.error);
+            };
+        } else {
+            console.log("Reconhecimento de fala não é suportado neste navegador.");
+            micButton.disabled = true;
+        }
+    </script>
 </body>
 </html>
