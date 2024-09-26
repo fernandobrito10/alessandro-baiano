@@ -5,11 +5,9 @@ import os
 
 load_dotenv()
 
-
 app = Flask(__name__)
 
-# Configuração do banco de dados SQLite
-
+# Configuração do banco de dados (verifique se a DATABASE_URL está correta)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -19,8 +17,8 @@ class Atendimento(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     codigo_cliente = db.Column(db.String(50), nullable=False)
     nome_cliente = db.Column(db.String(100), nullable=False)
-    data = db.Column(db.String(8), nullable=False) # DDMMYYYY
-    hora = db.Column(db.String(6), nullable=False) # HHMMSS
+    data = db.Column(db.String(8), nullable=False)  # DDMMYYYY
+    hora = db.Column(db.String(6), nullable=False)  # HHMMSS
     protocolo = db.Column(db.String(50), nullable=False)
     atendimento = db.Column(db.String(200), nullable=False)
     natureza = db.Column(db.String(100), nullable=False)
@@ -66,7 +64,6 @@ def registrar():
     db.session.add(novo_atendimento)
     db.session.commit()
 
-    
     # Redireciona para a página de atendimentos
     return redirect('/atendimentos')
 
