@@ -26,8 +26,6 @@ from dotenv import load_dotenv
 import os
 import time
 
-
-
 load_dotenv()
 
 app = Flask(__name__)
@@ -62,17 +60,13 @@ def alttab():
     keyboard.release(Key.tab)
     time.sleep(0.5)
 
-def ctrlv():
-    mouse.click(Button.right, 1)
-    mouse.position = (80, 325)
+def clicaresquerdo():
     mouse.click(Button.left, 1)
 
-
-
+def clicardireito():
+    mouse.click(Button.right, 1)
 
 time.sleep(1)
-
-
 
 # Novo atendimento
 mouse.position = (1320, 174)
@@ -91,7 +85,9 @@ alttab()
 # Colocar código
 mouse.position = (34, 239)
 mouse.click(Button.left, 1)
-ctrlv()
+mouse.click(Button.right, 1)
+mouse.position = (91, 319)
+mouse.click(Button.right, 1)
 time.sleep(0.1)
 keyboard.press(Key.enter)
 keyboard.release(Key.enter)
@@ -125,7 +121,7 @@ time.sleep(1)
 alttab()
 
 # Pegar data
-mouse.position = (688, 354)
+mouse.position = (695, 326)
 mouse.click(Button.left, 1)
 time.sleep(1)
 
@@ -142,9 +138,9 @@ time.sleep(1)
 alttab()
 
 # Pegar hora
-mouse.position = (689, 410)
-time.sleep(0.3)
+mouse.position = (690, 392)
 mouse.click(Button.left, 1)
+time.sleep(0.3)
 alttab()
 mouse.position = (623, 238)
 mouse.click(Button.left, 1)
@@ -190,22 +186,55 @@ mouse.click(Button.right, 1)
 mouse.position = (115, 395)
 mouse.click(Button.left, 1)
 
-'''
+time.sleep(0.2)
+alttab()
+
+# Pegar natureza
+mouse.position = (691, 580)
+clicaresquerdo()
+time.sleep(0.2)
+alttab()
+
 
 # Colocar natureza
-time.sleep(1)
-mouse.position = (378, 282)
+time.sleep(0.8)
+mouse.position = (380, 280)
 mouse.click(Button.left, 1)
-time.sleep(1)
-keyboard.type('SAIDA')
-time.sleep(1)
+time.sleep(0.8)
+mouse.position = (427, 446)
+mouse.click(Button.left, 1)
+time.sleep(0.3)
+keyboard.press(Key.backspace)
+keyboard.release(Key.backspace)
+time.sleep(0.3)
+mouse.position = (533, 421)
+mouse.click(Button.left, 1)
+mouse.click(Button.right, 1)
+mouse.position = (593, 506)
+mouse.click(Button.left, 1)
+time.sleep(0.5)
 keyboard.press(Key.enter)
 keyboard.release(Key.enter)
+keyboard.press(Key.enter)
+keyboard.release(Key.enter)
+time.sleep(0.5)
+
+alttab()
+
+# Pegar tempo de atendimento
+
+mouse.position = (695, 659)
+mouse.click(Button.left, 1)
+time.sleep(0.3)
+alttab()
+
 
 # Colocar tempo de atendimento
-time.sleep(1)
+
 mouse.position = (437, 395)
-time.sleep(1)
-mouse.click(Button.left, 1)
-keyboard.type('003000')
-'''
+time.sleep(0.5)
+clicaresquerdo()
+clicardireito()
+mouse.position = (496, 472)
+clicaresquerdo()
+
