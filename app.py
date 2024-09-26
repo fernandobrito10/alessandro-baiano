@@ -19,8 +19,8 @@ class Atendimento(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     codigo_cliente = db.Column(db.String(50), nullable=False)
     nome_cliente = db.Column(db.String(100), nullable=False)
-    data = db.Column(db.String(10), nullable=False)
-    hora = db.Column(db.String(5), nullable=False)
+    data = db.Column(db.String(8), nullable=False) # DDMMYYYY
+    hora = db.Column(db.String(6), nullable=False) # HHMMSS
     protocolo = db.Column(db.String(50), nullable=False)
     atendimento = db.Column(db.String(200), nullable=False)
     natureza = db.Column(db.String(100), nullable=False)
@@ -36,21 +36,36 @@ def index():
 
 @app.route('/registrar', methods=['POST'])
 def registrar():
-    # Coleta os dados do formulário
-    atendimento = Atendimento(
-        codigo_cliente=request.form['codigo_cliente'],
-        nome_cliente=request.form['nome_cliente'],
-        data=request.form['data'.replace('-', '')],
-        hora=request.form['hora'.replace('-', '')],
-        protocolo=request.form['protocolo'],
-        atendimento=request.form['atendimento'],
-        natureza=request.form['natureza'],
-        tempo_atendimento=request.form['tempo_atendimento']
+    codigo_cliente = request.form['codigo_cliente']
+    nome_cliente = request.form['nome_cliente']
+    
+    # Processa a data para o formato DDMMYYYY
+    data_original = request.form['data']  # Formato: YYYY-MM-DD
+    ano, mes, dia = data_original.split('-')  # Divide a data
+    data = f"{dia}{mes}{ano}"  # Formato DDMMYYYY
+    
+    # Processa a hora para o formato HHMMSS
+    hora = request.form['hora'].replace(':', '')  # Formato HHMM
+    
+    protocolo = request.form['protocolo']
+    atendimento = request.form['atendimento']
+    natureza = request.form['natureza']
+    tempo_atendimento = request.form['tempo_atendimento']
+    
+    novo_atendimento = Atendimento(
+        codigo_cliente=codigo_cliente,
+        nome_cliente=nome_cliente,
+        data=data,
+        hora=hora,
+        protocolo=protocolo,
+        atendimento=atendimento,
+        natureza=natureza,
+        tempo_atendimento=tempo_atendimento
     )
     
-    # Adiciona o atendimento ao banco de dados
-    db.session.add(atendimento)
+    db.session.add(novo_atendimento)
     db.session.commit()
+
     
     # Redireciona para a página de atendimentos
     return redirect('/atendimentos')
