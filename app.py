@@ -33,7 +33,7 @@ with app.app_context():
 # Função para carregar as naturezas do arquivo CSV
 def carregar_naturezas():
     naturezas = []
-    with open('naturezasnova1.csv', newline='') as csvfile:
+    with open('naturezasnova1.csv', mode='r', encoding='ISO-8859-1') as csvfile:
         leitor = csv.DictReader(csvfile)
         for linha in leitor:
             
