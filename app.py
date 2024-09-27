@@ -134,7 +134,7 @@ def login():
 
         if user and check_password_hash(user.password_hash, password):
             login_user(user)
-            return redirect(url_for('index'))  # Redireciona para a página inicial após login
+            return redirect(url_for('registrar'))  # Redireciona para a página inicial após login
         else:
             flash('Nome de usuário ou senha incorretos.', 'error')
     
