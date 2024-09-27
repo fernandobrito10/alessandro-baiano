@@ -70,41 +70,47 @@ def index():
     return redirect(url_for('login'))  # Redireciona para a página de login
 
 # Rota para registrar atendimento (apenas usuários autenticados)
-@app.route('/registrar', methods=['POST'])
+# Rota para a página de registro de atendimentos (apenas usuários autenticados)
+@app.route('/registrar', methods=['GET', 'POST'])
 @login_required  # Apenas usuários logados podem registrar atendimentos
 def registrar():
-    codigo_cliente = request.form['codigo_cliente']
-    nome_cliente = request.form['nome_cliente']
+    if request.method == 'POST':
+        codigo_cliente = request.form['codigo_cliente']
+        nome_cliente = request.form['nome_cliente']
 
-    # Processa a data para o formato DDMMYYYY
-    data_original = request.form['data']  # Formato: YYYY-MM-DD
-    ano, mes, dia = data_original.split('-')  # Divide a data
-    data = f"{dia}{mes}{ano}"  # Formato DDMMYYYY
+        # Processa a data para o formato DDMMYYYY
+        data_original = request.form['data']  # Formato: YYYY-MM-DD
+        ano, mes, dia = data_original.split('-')  # Divide a data
+        data = f"{dia}{mes}{ano}"  # Formato DDMMYYYY
 
-    # Processa a hora para o formato HHMMSS
-    hora = request.form['hora'].replace(':', '')  # Formato HHMM
+        # Processa a hora para o formato HHMMSS
+        hora = request.form['hora'].replace(':', '')  # Formato HHMM
 
-    protocolo = request.form['protocolo']
-    atendimento = request.form['atendimento']
-    natureza = request.form['natureza']
-    tempo_atendimento = request.form['tempo_atendimento']
+        protocolo = request.form['protocolo']
+        atendimento = request.form['atendimento']
+        natureza = request.form['natureza']
+        tempo_atendimento = request.form['tempo_atendimento']
 
-    novo_atendimento = Atendimento(
-        codigo_cliente=codigo_cliente,
-        nome_cliente=nome_cliente,
-        data=data,
-        hora=hora,
-        protocolo=protocolo,
-        atendimento=atendimento,
-        natureza=natureza,
-        tempo_atendimento=tempo_atendimento,
-        user_id=current_user.id  # Associa o atendimento ao usuário logado
-    )
+        novo_atendimento = Atendimento(
+            codigo_cliente=codigo_cliente,
+            nome_cliente=nome_cliente,
+            data=data,
+            hora=hora,
+            protocolo=protocolo,
+            atendimento=atendimento,
+            natureza=natureza,
+            tempo_atendimento=tempo_atendimento,
+            user_id=current_user.id  # Associa o atendimento ao usuário logado
+        )
 
-    db.session.add(novo_atendimento)
-    db.session.commit()
+        db.session.add(novo_atendimento)
+        db.session.commit()
 
-    return redirect('/atendimentos')
+        return redirect('/atendimentos')  # Redireciona para a lista de atendimentos após o registro
+
+    # Se a requisição for GET, renderiza o formulário de registro
+    return render_template('registrar_atendimento.html')  # Certifique-se de que o template existe
+
 
 # Rota para visualizar os atendimentos
 @app.route('/atendimentos')
