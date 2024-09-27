@@ -15,8 +15,7 @@ app = Flask(__name__)
 # Configuração do banco de dados
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-# app.secret_key = os.getenv('SECRET_KEY')  # Adicione uma chave secreta no .env
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')  # Adicione uma chave secreta no .env
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -65,11 +64,10 @@ def carregar_naturezas():
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# Rota para a página principal
+# Rota para a página principal (redireciona para a página de login)
 @app.route('/')
 def index():
-    naturezas = carregar_naturezas()
-    return render_template('index.html', naturezas=naturezas)
+    return redirect(url_for('login'))  # Redireciona para a página de login
 
 # Rota para registrar atendimento (apenas usuários autenticados)
 @app.route('/registrar', methods=['POST'])
@@ -108,7 +106,6 @@ def registrar():
 
     return redirect('/atendimentos')
 
-
 # Rota para visualizar os atendimentos
 @app.route('/atendimentos')
 @login_required  # Apenas usuários logados podem ver atendimentos
@@ -116,7 +113,6 @@ def ver_atendimentos():
     # Exibe apenas os atendimentos do usuário logado
     atendimentos = Atendimento.query.filter_by(user_id=current_user.id).all()
     return render_template('atendimentos.html', atendimentos=atendimentos)
-
 
 # Rota para concluir (excluir) um atendimento
 @app.route('/concluir/<int:id>')
@@ -144,6 +140,7 @@ def login():
     
     return render_template('login.html')
 
+# Rota para cadastro
 @app.route('/cadastrar', methods=['GET', 'POST'])
 def cadastro():
     if request.method == 'POST':
