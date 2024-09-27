@@ -40,7 +40,7 @@ class Atendimento(db.Model):
     data = db.Column(db.String(8), nullable=False)  # DDMMYYYY
     hora = db.Column(db.String(6), nullable=False)  # HHMMSS
     protocolo = db.Column(db.String(50), nullable=False)
-    atendimento = db.Column(db.String(200), nullable=False)
+    atendimento = db.Column(db.Text(), nullable=False)
     natureza = db.Column(db.String(100), nullable=False)
     tempo_atendimento = db.Column(db.String(50), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Chave estrangeira
