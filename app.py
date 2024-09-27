@@ -75,7 +75,7 @@ def index():
 @login_required  # Apenas usuários logados podem registrar atendimentos
 def registrar():
     naturezas = carregar_naturezas()  # Carrega as naturezas
-    return render_template('index.html', naturezas=naturezas)  # Passa as naturezas para o template
+
     if request.method == 'POST':
         codigo_cliente = request.form['codigo_cliente']
         nome_cliente = request.form['nome_cliente']
@@ -111,7 +111,8 @@ def registrar():
         return redirect('/atendimentos')  # Redireciona para a lista de atendimentos após o registro
 
     # Se a requisição for GET, renderiza o formulário de registro
-    return render_template('index.html')  # Certifique-se de que o template existe
+    return render_template('index.html', naturezas=naturezas)  # Passa as naturezas para o template
+
 
 
 # Rota para visualizar os atendimentos
