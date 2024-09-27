@@ -109,7 +109,7 @@ def registrar():
         return redirect('/atendimentos')  # Redireciona para a lista de atendimentos após o registro
 
     # Se a requisição for GET, renderiza o formulário de registro
-    return render_template('registrar_atendimento.html')  # Certifique-se de que o template existe
+    return render_template('index.html')  # Certifique-se de que o template existe
 
 
 # Rota para visualizar os atendimentos
