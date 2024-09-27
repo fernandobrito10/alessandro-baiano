@@ -74,6 +74,8 @@ def index():
 @app.route('/registrar', methods=['GET', 'POST'])
 @login_required  # Apenas usuários logados podem registrar atendimentos
 def registrar():
+    naturezas = carregar_naturezas()  # Carrega as naturezas
+    return render_template('index.html', naturezas=naturezas)  # Passa as naturezas para o template
     if request.method == 'POST':
         codigo_cliente = request.form['codigo_cliente']
         nome_cliente = request.form['nome_cliente']
