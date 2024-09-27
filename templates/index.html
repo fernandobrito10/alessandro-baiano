@@ -81,9 +81,13 @@
             recognition.onresult = (event) => {
                 let transcript = '';
                 for (let i = 0; i < event.results.length; i++) {
-                    transcript += event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        // Se o resultado for final, concatena o texto
+                        transcript += event.results[i][0].transcript;
+                    }
                 }
-                inputField.value = transcript;
+                // Adiciona o texto final ao valor existente no campo
+                inputField.value += transcript;
             };
 
             // Função para capturar erros
@@ -94,23 +98,6 @@
             console.log("Reconhecimento de fala não é suportado neste navegador.");
             micButton.disabled = true;
         }
-        function filtrarNaturezas() {
-        const input = document.getElementById('naturezaInput');
-        const filter = input.value.toLowerCase();
-        const dropdown = document.getElementById('naturezaDropdown');
-        const items = dropdown.getElementsByClassName('dropdown-item');
-
-        dropdown.style.display = 'block';
-
-        for (let i = 0; i < items.length; i++) {
-            const txtValue = items[i].textContent || items[i].innerText;
-            items[i].style.display = txtValue.toLowerCase().includes(filter) ? '' : 'none';
-        }
-
-        if (filter === '') {
-            dropdown.style.display = 'none';
-        }
-    }
 
     function selecionarNatureza(natureza) {
         document.getElementById('naturezaInput').value = natureza;

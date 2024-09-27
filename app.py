@@ -2,7 +2,6 @@ import pandas as pd
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, UserMixin
-from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 import os
@@ -18,7 +17,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')  # Adicione uma chave secreta no .env
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
 
 # Configuração do Flask-Login
 login_manager = LoginManager()
