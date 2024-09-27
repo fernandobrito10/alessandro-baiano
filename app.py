@@ -146,7 +146,7 @@ def cadastro():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        hashed_password = generate_password_hash(password, method='sha256')
+        hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
         novo_usuario = User(username=username, password_hash=hashed_password)
         db.session.add(novo_usuario)
         db.session.commit()
@@ -160,15 +160,15 @@ def logout():
     logout_user()
     flash('Você saiu da sessão', 'success')
     return redirect(url_for('login'))
-
+'''
 # Criar usuário (apenas para fins de exemplo, remover em produção)
 @app.route('/criar_usuario')
 def criar_usuario():
-    hashed_password = generate_password_hash('senha123', method='sha256')
+    hashed_password = generate_password_hash('senha123', method='pbkdf2:sha256')
     novo_usuario = User(username='admin', password_hash=hashed_password)
     db.session.add(novo_usuario)
     db.session.commit()
     return 'Usuário criado com sucesso!'
-
+'''
 if __name__ == '__main__':
     app.run(debug=True)
