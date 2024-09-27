@@ -92,3 +92,18 @@ button:hover {
 .dropdown-item:hover {
     background-color: #f1f1f1;
 }
+
+.input-container {
+    display: flex; /* Usar flexbox para alinhar os campos */
+    gap: 10px; /* Espaçamento entre os campos */
+}
+
+.codigo-cliente {
+    display: flex;
+    width: px; /* Largura maior para o código do cliente */
+    flex: 0.3;
+}
+
+.nome-cliente {
+    flex: 2; 
+}
