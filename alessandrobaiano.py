@@ -24,6 +24,7 @@ from pynput.mouse import Button, Controller as MouseController
 from pynput.keyboard import Key, Controller as KeyboardController
 from dotenv import load_dotenv
 from flask_login import current_user
+from monitoramento import monitorar_tela
 import os
 import time
 
@@ -69,8 +70,49 @@ def clicaresquerdo():
 def clicardireito():
     mouse.click(Button.right, 1)
 
+def esc():
+    keyboard.press(Key.esc)
+    keyboard.release(Key.esc)
+
+def tab():
+    keyboard.press(Key.tab)
+    keyboard.release(Key.tab)
+
 time.sleep(1)
 
+lista = ['Confirmação',
+         'Informação']
+
+# Novo atendimento
+keyboard.press(Key.f2)
+keyboard.release(Key.f2)
+
+teste = monitorar_tela(lista)
+
+if teste:
+    print('Esc')
+    esc()
+
+teste = monitorar_tela(lista)
+
+if teste:
+    print('Esc')
+    esc()
+
+time.sleep(0.8)
+
+tab()
+time.sleep(0.2)
+tab()
+time.sleep(0.2)
+
+alttab()
+
+# Pegar código do cliente
+mouse.position = (688, 219)
+mouse.click(Button.left, 1)
+time.sleep(1)
+'''
 # Novo atendimento
 mouse.position = (1320, 174)
 mouse.click(Button.left, 1)
@@ -241,3 +283,5 @@ clicardireito()
 mouse.position = (496, 472)
 clicaresquerdo()
 
+
+'''
