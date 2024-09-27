@@ -99,6 +99,25 @@
             micButton.disabled = true;
         }
 
+
+        function filtrarNaturezas() {
+        const input = document.getElementById('naturezaInput');
+        const filter = input.value.toLowerCase();
+        const dropdown = document.getElementById('naturezaDropdown');
+        const items = dropdown.getElementsByClassName('dropdown-item');
+
+        dropdown.style.display = 'block';
+
+        for (let i = 0; i < items.length; i++) {
+            const txtValue = items[i].textContent || items[i].innerText;
+            items[i].style.display = txtValue.toLowerCase().includes(filter) ? '' : 'none';
+        }
+
+        if (filter === '') {
+            dropdown.style.display = 'none';
+        }
+    }
+
     function selecionarNatureza(natureza) {
         document.getElementById('naturezaInput').value = natureza;
         document.getElementById('natureza').value = natureza; // Define o valor do campo oculto
