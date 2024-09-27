@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Atendimento</title>
+    <title>Alessandro Baiano</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
 </head>
 <body>
+    <a href="/logout">Sair</a>
     <div class="container">
-        <h1>Registro de Atendimento</h1>
+        <h1>Alessandro Baiano</h1>
         <form action="/registrar" method="POST">
             <div class="form-group">
                 <label for="codigo_cliente">Código do Cliente:</label>
@@ -33,7 +35,7 @@
             <div class="form-group">
                 <label for="atendimento">Atendimento:</label>
                 <div class="input-container">
-                    <input type="text" id="atendimento" name="atendimento" placeholder="Digite ou fale algo..." required>
+                    <textarea id="atendimento" name="atendimento" placeholder="Digite ou fale algo..." required rows="4"></textarea>
                     <button id="micButton" title="Clique para falar" class="mic-button microphone-icon">🎤</button>
                 </div>
             </div>
@@ -79,9 +81,13 @@
             recognition.onresult = (event) => {
                 let transcript = '';
                 for (let i = 0; i < event.results.length; i++) {
-                    transcript += event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        // Se o resultado for final, concatena o texto
+                        transcript += event.results[i][0].transcript;
+                    }
                 }
-                inputField.value = transcript;
+                // Adiciona o texto final ao valor existente no campo
+                inputField.value += transcript;
             };
 
             // Função para capturar erros
@@ -92,6 +98,8 @@
             console.log("Reconhecimento de fala não é suportado neste navegador.");
             micButton.disabled = true;
         }
+
+
         function filtrarNaturezas() {
         const input = document.getElementById('naturezaInput');
         const filter = input.value.toLowerCase();

@@ -3,6 +3,8 @@ body {
     margin: 20px;
     padding: 0;
     background-color: #f4f4f4;
+    background-image: url('/static/background.jpeg');
+    height: 100vh;
 }
 
 .container {
@@ -91,4 +93,28 @@ button:hover {
 
 .dropdown-item:hover {
     background-color: #f1f1f1;
+}
+
+.input-container {
+    display: flex; /* Usar flexbox para alinhar os campos */
+    gap: 10px; /* Espaçamento entre os campos */
+}
+
+.codigo-cliente {
+    display: flex;
+    width: px; /* Largura maior para o código do cliente */
+    flex: 0.3;
+}
+
+.nome-cliente {
+    flex: 2; 
+}
+
+textarea {
+    width: 100%; /* Faz a largura ocupar 100% do espaço disponível */
+    padding: 8px; /* Adiciona espaçamento interno */
+    box-sizing: border-box; /* Inclui o padding e a borda na largura total */
+    border: 1px solid #ccc; /* Define a borda */
+    border-radius: 4px; /* Arredonda os cantos */
+    resize: vertical; /* Permite redimensionar verticalmente */
 }
