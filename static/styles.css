@@ -109,3 +109,12 @@ button:hover {
 .nome-cliente {
     flex: 2; 
 }
+
+textarea {
+    width: 100%; /* Faz a largura ocupar 100% do espaço disponível */
+    padding: 8px; /* Adiciona espaçamento interno */
+    box-sizing: border-box; /* Inclui o padding e a borda na largura total */
+    border: 1px solid #ccc; /* Define a borda */
+    border-radius: 4px; /* Arredonda os cantos */
+    resize: vertical; /* Permite redimensionar verticalmente */
+}

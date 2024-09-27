@@ -23,6 +23,7 @@ import psycopg2  # ou o adaptador que você estiver usando para o PostgreSQL
 from pynput.mouse import Button, Controller as MouseController
 from pynput.keyboard import Key, Controller as KeyboardController
 from dotenv import load_dotenv
+from flask_login import current_user
 import os
 import time
 
@@ -33,15 +34,17 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+
 class Atendimento(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-def contar_atendimentos():
-    return Atendimento.query.count()
+def contar_atendimentos_por_usuario(user_id):
+    return Atendimento.query.filter_by(user_id=user_id).count()
 
 with app.app_context():
-    total_atendimentos = contar_atendimentos()
-    print(f'Total de atendimentos: {total_atendimentos}')
+    total_atendimentos = contar_atendimentos_por_usuario(3)  # Substitua 1 pelo ID desejado
+    print(f'Total de atendimentos do usuário: {total_atendimentos}')
 
 if __name__ == '__main__':
     app.run()
