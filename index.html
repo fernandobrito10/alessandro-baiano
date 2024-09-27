@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alessandro Baiano</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <a href="/logout">Sair</a>
+    <div class="container">
+        <h1>Alessandro Baiano</h1>
+        <form action="/registrar" method="POST">
+            <div class="form-group">
+                <label for="codigo_cliente">Código do Cliente:</label>
+                <input type="text" id="codigo_cliente" name="codigo_cliente" required>
+            </div>
+            <div class="form-group">
+                <label for="nome_cliente">Nome do Cliente:</label>
+                <input type="text" id="nome_cliente" name="nome_cliente" required>
+            </div>
+            <div class="form-group">
+                <label for="data">Data:</label>
+                <input type="date" id="data" name="data" required>
+            </div>
+            <div class="form-group">
+                <label for="hora">Hora:</label>
+                <input type="time" id="hora" name="hora" required>
+            </div>
+            <div class="form-group">
+                <label for="protocolo">Protocolo:</label>
+                <input type="text" id="protocolo" name="protocolo" required>
+            </div>
+            <div class="form-group">
+                <label for="atendimento">Atendimento:</label>
+                <div class="input-container">
+                    <textarea id="atendimento" name="atendimento" placeholder="Digite ou fale algo..." required rows="4"></textarea>
+                    <button id="micButton" title="Clique para falar" class="mic-button microphone-icon">🎤</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="natureza">Natureza:</label>
+                <div class="dropdown">
+                    <input type="text" id="naturezaInput" placeholder="Pesquise uma natureza..." onkeyup="filtrarNaturezas()" autocomplete="off">
+                    <div id="naturezaDropdown" class="dropdown-content">
+                        {% for natureza in naturezas %}
+                            <div class="dropdown-item" onclick="selecionarNatureza('{{ natureza }}')">{{ natureza }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <input type="hidden" id="natureza" name="natureza" required>
+            </div>
+            <div class="form-group">
+                <label for="tempo_atendimento">Tempo de Atendimento (Formato HHMMSS):</label>
+                <input type="text" id="tempo_atendimento" name="tempo_atendimento" required>
+            </div>
+            <button type="submit">Registrar Atendimento</button>
+        </form>
+        <a href="/atendimentos">Ver Atendimentos</a>
+    </div>
+
+    <script>
+        const inputField = document.getElementById('atendimento');
+        const micButton = document.getElementById('micButton');
+
+        // Verifica se o navegador suporta a API de reconhecimento de fala
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'pt-BR';
+            recognition.interimResults = true; // Permite resultados parciais
+
+            // Função para quando começar a falar
+            micButton.addEventListener('click', () => {
+                recognition.start();
+            });
+
+            // Função para quando o reconhecimento de fala retornar resultados contínuos
+            recognition.onresult = (event) => {
+                let transcript = '';
+                for (let i = 0; i < event.results.length; i++) {
+                    if (event.results[i].isFinal) {
+                        // Se o resultado for final, concatena o texto
+                        transcript += event.results[i][0].transcript;
+                    }
+                }
+                // Adiciona o texto final ao valor existente no campo
+                inputField.value += transcript;
+            };
+
+            // Função para capturar erros
+            recognition.onerror = (event) => {
+                console.error("Erro de reconhecimento de fala:", event.error);
+            };
+        } else {
+            console.log("Reconhecimento de fala não é suportado neste navegador.");
+            micButton.disabled = true;
+        }
+
+
+        function filtrarNaturezas() {
+        const input = document.getElementById('naturezaInput');
+        const filter = input.value.toLowerCase();
+        const dropdown = document.getElementById('naturezaDropdown');
+        const items = dropdown.getElementsByClassName('dropdown-item');
+
+        dropdown.style.display = 'block';
+
+        for (let i = 0; i < items.length; i++) {
+            const txtValue = items[i].textContent || items[i].innerText;
+            items[i].style.display = txtValue.toLowerCase().includes(filter) ? '' : 'none';
+        }
+
+        if (filter === '') {
+            dropdown.style.display = 'none';
+        }
+    }
+
+    function selecionarNatureza(natureza) {
+        document.getElementById('naturezaInput').value = natureza;
+        document.getElementById('natureza').value = natureza; // Define o valor do campo oculto
+        document.getElementById('naturezaDropdown').style.display = 'none'; // Oculta o dropdown
+    }
+
+    </script>
+    <script>
+        window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+      </script>
+      <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>
