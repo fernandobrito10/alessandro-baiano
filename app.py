@@ -158,7 +158,7 @@ def cadastro():
         db.session.add(novo_usuario)
         db.session.commit()
         return redirect(url_for('login'))  # Redireciona após o cadastro
-    return render_template('cadastrar.html')
+    return render_template('cadastrar.html', user=current_user)
 
 # Rota de logout
 @app.route('/logout')

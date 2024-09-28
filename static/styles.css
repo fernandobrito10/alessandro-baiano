@@ -118,3 +118,11 @@ textarea {
     border-radius: 4px; /* Arredonda os cantos */
     resize: vertical; /* Permite redimensionar verticalmente */
 }
+
+.user-info {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
