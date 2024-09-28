@@ -1,10 +1,5 @@
+Instalação do Python3: https://www.python.org/downloads/
+
 Bibliotecas necessárias:
 
-pip install flask
-pip install pyautogui
-pip install pynput
-pip install Flask-SQLAlchemy
-pip install python-dotenv
-pip install psycopg2
-pip install gunicorn
-pip install pandas
+pip install flask pyautogui pynput Flask-SQLAlchemy python-dotenv psycopg2 gunicorn flask-login
