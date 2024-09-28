@@ -22,6 +22,8 @@ h1 {
 }
 
 .form-group {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 15px;
 }
 
@@ -101,13 +103,11 @@ button:hover {
 }
 
 .codigo-cliente {
-    display: flex;
-    width: px; /* Largura maior para o código do cliente */
-    flex: 0.3;
+    width: 100px;
 }
 
 .nome-cliente {
-    flex: 2; 
+    width: 100%; 
 }
 
 textarea {

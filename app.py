@@ -1,4 +1,3 @@
-import pandas as pd
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, UserMixin
@@ -170,15 +169,6 @@ def logout():
     logout_user()
     flash('Você saiu da sessão', 'success')
     return redirect(url_for('login'))
-'''
-# Criar usuário (apenas para fins de exemplo, remover em produção)
-@app.route('/criar_usuario')
-def criar_usuario():
-    hashed_password = generate_password_hash('senha123', method='pbkdf2:sha256')
-    novo_usuario = User(username='admin', password_hash=hashed_password)
-    db.session.add(novo_usuario)
-    db.session.commit()
-    return 'Usuário criado com sucesso!'
-'''
+
 if __name__ == '__main__':
     app.run(debug=True)
