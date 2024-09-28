@@ -5,14 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="/static/styles.css">
-    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div class="container">
         <h1>Login</h1>
+
+        <!-- Aqui mostramos as mensagens de erro (ou outras mensagens flash) -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flashes">
+              {% for category, message in messages %}
+                <li class="flash {{ category }}">{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
         <form action="/login" method="POST">
             <div class="form-group">
-                <label for="username">Nome de Usuário:</label>
+                <label for="username">Nome de usuário:</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="form-group">
@@ -21,7 +32,6 @@
             </div>
             <button type="submit">Entrar</button>
         </form>
-        <p>Não tem uma conta? <a href="/cadastrar">Cadastre-se</a></p>
     </div>
 </body>
 </html>
