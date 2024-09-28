@@ -55,7 +55,12 @@
                 <label for="tempo_atendimento">Tempo de Atendimento (Formato HHMMSS):</label>
                 <input type="text" id="tempo_atendimento" name="tempo_atendimento" required>
             </div>
-            <button type="submit">Registrar Atendimento</button>
+            <button type="submit" id="submitButton" onclick="disableButton()">Registrar Atendimento</button>
+            <script>
+                function disableButton() {
+                    document.getElementById('submitButton').disabled = true;
+                }
+            </script>
         </form>
         <a href="/atendimentos">Ver Atendimentos</a>
     </div>
