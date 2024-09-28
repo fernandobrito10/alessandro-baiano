@@ -89,7 +89,10 @@ def registrar():
         protocolo = request.form['protocolo']
         atendimento = request.form['atendimento']
         natureza = request.form['natureza']
-        tempo_atendimento = request.form['tempo_atendimento']
+        tempo_atendimento = request.form.get('tempo_atendimento', None).replace(':', '')
+        if tempo_atendimento is None:
+            flash('Por favor, preencha o campo Tempo de Atendimento.', 'error')
+            return redirect('/registrar')  # Redireciona para o formulário
 
         novo_atendimento = Atendimento(
             codigo_cliente=codigo_cliente,

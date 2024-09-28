@@ -58,19 +58,32 @@
                 <input type="hidden" id="natureza" name="natureza" required>
             </div>
             <div class="form-group">
-                <label for="tempo_atendimento">Tempo de Atendimento (Formato HHMMSS):</label>
-                <input type="text" id="tempo_atendimento" name="tempo_atendimento" required>
-            </div>
-            <button type="submit" id="submitButton" onclick="disableButton()">Registrar Atendimento</button>
-            <script>
-                function disableButton() {
-                    document.getElementById('submitButton').disabled = true;
-                }
-            </script>
+                <label for="tempo_atendimento">Tempo de Atendimento (Formato HH:MM:SS):</label>
+                <input type="text" id="tempo_atendimento" name="tempo_atendimento" maxlength="8" placeholder="HH:MM:SS" required>
+            </div>            
+            <button type="submit">Registrar Atendimento</button>
         </form>
         <a href="/atendimentos">Ver Atendimentos</a>
     </div>
 
+    <script>
+        document.getElementById('tempo_atendimento').addEventListener('input', function (e) {
+            let input = e.target.value;
+        
+            // Remove tudo que não for número
+            input = input.replace(/\D/g, '');
+        
+            // Formata a entrada de acordo com o tamanho
+            if (input.length <= 2) {
+                e.target.value = input;
+            } else if (input.length <= 4) {
+                e.target.value = input.substring(0, 2) + ':' + input.substring(2, 4);
+            } else if (input.length <= 6) {
+                e.target.value = input.substring(0, 2) + ':' + input.substring(2, 4) + ':' + input.substring(4, 6);
+            }
+        });
+    </script>
+        
     <script>
         const inputField = document.getElementById('atendimento');
         const micButton = document.getElementById('micButton');
@@ -110,35 +123,34 @@
             micButton.disabled = true;
         }
 
-
         function filtrarNaturezas() {
-        const input = document.getElementById('naturezaInput');
-        const filter = input.value.toLowerCase();
-        const dropdown = document.getElementById('naturezaDropdown');
-        const items = dropdown.getElementsByClassName('dropdown-item');
+            const input = document.getElementById('naturezaInput');
+            const filter = input.value.toLowerCase();
+            const dropdown = document.getElementById('naturezaDropdown');
+            const items = dropdown.getElementsByClassName('dropdown-item');
 
-        dropdown.style.display = 'block';
+            dropdown.style.display = 'block';
 
-        for (let i = 0; i < items.length; i++) {
-            const txtValue = items[i].textContent || items[i].innerText;
-            items[i].style.display = txtValue.toLowerCase().includes(filter) ? '' : 'none';
+            for (let i = 0; i < items.length; i++) {
+                const txtValue = items[i].textContent || items[i].innerText;
+                items[i].style.display = txtValue.toLowerCase().includes(filter) ? '' : 'none';
+            }
+
+            if (filter === '') {
+                dropdown.style.display = 'none';
+            }
         }
 
-        if (filter === '') {
-            dropdown.style.display = 'none';
+        function selecionarNatureza(natureza) {
+            document.getElementById('naturezaInput').value = natureza;
+            document.getElementById('natureza').value = natureza; // Define o valor do campo oculto
+            document.getElementById('naturezaDropdown').style.display = 'none'; // Oculta o dropdown
         }
-    }
-
-    function selecionarNatureza(natureza) {
-        document.getElementById('naturezaInput').value = natureza;
-        document.getElementById('natureza').value = natureza; // Define o valor do campo oculto
-        document.getElementById('naturezaDropdown').style.display = 'none'; // Oculta o dropdown
-    }
-
     </script>
+
     <script>
         window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
-      </script>
-      <script defer src="/_vercel/speed-insights/script.js"></script>
+    </script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>
