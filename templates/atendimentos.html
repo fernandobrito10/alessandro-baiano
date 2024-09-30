@@ -40,11 +40,11 @@
                 <p><strong>Tempo de Atendimento:</strong> {{ atendimento.tempo_atendimento }} 
                     <button onclick="copiarTexto('{{ atendimento.tempo_atendimento }}')">Copiar</button>
                 </p>
-                <a href="/concluir/{{ atendimento.id }}">Concluir</a>
+                <a href="/concluir/{{ atendimento.id }}">Excluir atendimento</a>
             </li>
         {% endfor %}
         </ul>
-        <a href="/registrar">Voltar</a>
+        <a href="/registrar">Voltar à registrar</a>
     </div>
 
     <script>
