@@ -1,42 +1,102 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7175536726497966"
-    crossorigin="anonymous">
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="/static/styles.css">
-    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/CSS/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="icon" href="">
+    <title>Alessandro baiano</title>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Login</h1>
 
-        <!-- Aqui mostramos as mensagens de erro (ou outras mensagens flash) -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            <ul class="flashes">
-              {% for category, message in messages %}
-                <li class="flash {{ category }}">{{ message }}</li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        {% endwith %}
+    <section>
 
-        <form action="/login" method="POST">
-            <div class="form-group">
-                <label for="username">Nome de usuário:</label>
-                <input type="text" id="username" name="username" required>
+        <div class="container">
+
+            <div class="div-left">
+                <div class="div--logo">
+                    <img src="/assets/images/logo f5.ico">
+                </div>
+
+                <div class="slider-container">
+                    <div class="slide fade">
+                        <img src="/assets/images/WhatsApp_Image_2024-09-27_at_12.24.23-removebg-preview.png"
+                            alt="Imagem 1">
+                        <h2 class="div--h1">Melhor site de registros de atendimento do brasil</h2>
+                        <div class="text--1">Alessandro, o "baiano" do trabalho, sempre encontra maneiras de evitar
+                            esforço,
+                            deixando tarefas para depois e perdendo prazos. Isso às vezes frustra os colegas, mas sua
+                            atitude relaxada traz risos ao ambiente. Mesmo assim, sua preguiça pode afetar o progresso
+                            da
+                            equipe!</div>
+                    </div>
+                    <div class="slide fade">
+                        <img src="/assets/images/rebaixado.png" alt="Imagem 2" class="img--2">
+                        <h2 class="div--h2">Venha conhecer!</h2>
+                        <div class="text--2">Alessandro Baiano, o tipo de amigo que todo mundo merece ter! Gente boa,
+                            sempre de bom humor, e capaz de transformar qualquer dia comum em uma festa. Se fosse uma
+                            marca, seria '100% autenticidade e camaradagem!</div>
+                    </div>
+                    <div class="slide fade">
+                        <img src="/assets/images/alessandro serra.jpeg" alt="Imagem 3" class="img--3">
+                        <h2 class="div--h3">Toda equipe alinhada</h2>
+                        <div class="text--3">Nosso sistema de registro de atendimentos foi desenvolvido para otimizar a
+                            gestão de interações com clientes, oferecendo praticidade e eficiência no acompanhamento de
+                            cada atendimento. Com ele, você pode garantir que nenhum detalhe importante seja esquecido,
+                            proporcionando um serviço de qualidade e personalizado.</div>
+                    </div>
+                </div>
+
+                <div class="dots-container">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
+
             </div>
-            <div class="form-group">
-                <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" required>
+
+            <div class="div-right">
+                <div class="login-box">
+                    <div class="box">
+                        <h1 class="tittle-login">LOGIN</h1>
+                        
+
+                        <form action="/login" method="POST">
+                            <div class="form-group">
+                                <input type="text" id="username" name="username" placeholder="Usuário" required>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" id="password" name="password" placeholder="Senha" required>
+                            </div>
+
+                            <div class="enter">
+                                <p>Ainda não tem uma conta? <a href="/cadastrar">Crie uma!</a></p>
+                                <button type="submit" id="submit-btn">Entrar</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <div class="box--realease">
+                    <div class="release">
+                        <p>v1.0.0.1</p>
+
+                    </div>
+                </div>
+
             </div>
-            <button type="submit">Entrar</button>
-        </form>
-        <p>Não tem uma conta? <a href="/cadastrar">Cadastre-se</a></p>
-    </div>
+        </div>
+
+    </section>
+
+    <script src="/assets/js/script.js"></script>
+    <script src="/assets/js/login.js"></script>
 </body>
+
 </html>

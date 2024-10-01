@@ -24,7 +24,7 @@ from pynput.mouse import Button, Controller as MouseController
 from pynput.keyboard import Key, Controller as KeyboardController
 from dotenv import load_dotenv
 from flask_login import current_user
-from monitoramento import monitorar_tela
+#from monitoramento import monitorar_tela
 import os
 import time
 
@@ -82,7 +82,7 @@ time.sleep(1)
 
 lista = ['Confirmação',
          'Informação']
-
+'''
 # Novo atendimento
 keyboard.press(Key.f2)
 keyboard.release(Key.f2)
@@ -113,6 +113,7 @@ mouse.position = (688, 219)
 mouse.click(Button.left, 1)
 time.sleep(1)
 '''
+
 # Novo atendimento
 mouse.position = (1320, 174)
 mouse.click(Button.left, 1)
@@ -284,4 +285,3 @@ mouse.position = (496, 472)
 clicaresquerdo()
 
 
-'''
