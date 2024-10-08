@@ -27,20 +27,6 @@
     position: relative;
 }
 
-.div-left .div--logo {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
-    position: absolute; 
-    top: 40px; 
-    left: 120px; 
-}
-
-.div-left .div--logo img {
-    max-width: 100px;
-}
-
 .slider-container {
     max-width: 800px;
     position: relative;
@@ -48,14 +34,22 @@
     text-align: center;
 }
 
-img {
-    width: 100%;
-    border-radius: 8px;
+.slider-container .img--1 {
+
+    width: 700px;
 }
+
+.slider-container .img--3 {
+
+    width: 500px;
+}
+
 
 .slider-container .img--2 {
     width: 500px;
 }
+
+
 
 .slider-container .div--h1 {
     color: #49be8f;
@@ -96,8 +90,8 @@ img {
 .slider-container .div--h2,
 .slider-container .div--h3 {
     color: #49be8f;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .slider-container .text--1,
@@ -106,24 +100,28 @@ img {
     max-width: 700px;
     color: black;
     opacity: 0.7;
-    font-weight: 400;
-    font-size: 18px;
+    font-weight: 400;   
+    font-size: 14px;
 }
 
 /* LADO DIREITO */
 .div-right {
-    flex: 1;
+    flex: 1 ;
     background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
-    position: relative;
+    position: relative;      
 }
 
-.box {
-    margin-bottom: 150px;
+.div-right .login-box {
+    display: flex;
+   height: 100%;
+   align-items: center;
+   justify-content: center;
+
 }
 
 .login-box .box .tittle-login {
@@ -133,10 +131,13 @@ img {
 
 .login-box .box .enter p {
     color: black;
+    margin-top: 15px;
 }
 
 .login-box .box .enter {
-    margin-top: 20px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 12px;
 }
 
 .login-box .box .enter a {
@@ -163,8 +164,6 @@ img {
 
 .login-box .box .enter input {
     cursor: pointer;
-    width: 330px;
-    height: 45px;
     border-radius: 15px;
     color: black;
 }
@@ -177,7 +176,8 @@ img {
     border-radius: 5px; 
     cursor: not-allowed; 
     transition: background-color 0.3s; 
-    margin-top: 15px;
+    width: 330px;
+    height: 45px;
 }
 
 #submit-btn:enabled {
@@ -189,8 +189,15 @@ img {
     background-color: #39ac7d; 
 }
 
-.div-right .box--realease .release {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
+
+.div-right .release {
+
+    height: 10%;
+    font-size: 13px;
 }
+
+.div-right .copyright {
+
+    font-size: 12px;
+}
+
